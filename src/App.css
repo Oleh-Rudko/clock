@@ -78,6 +78,7 @@ body {
   justify-content: center;
   gap: 1.5rem;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .countdown-segment {
@@ -103,7 +104,18 @@ body {
   margin-top: 0.5rem;
 }
 
-@media (max-width: 600px) {
+/* Desktop and larger screens */
+@media (min-width: 769px) {
+  .countdown-timer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile and smaller screens */
+@media (max-width: 768px) {
   .countdown-container h1 {
     font-size: 2rem;
   }
@@ -112,8 +124,26 @@ body {
     font-size: 1.2rem;
   }
   
-  .countdown-segment {
-    min-width: 80px;
+  .countdown-timer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+  }
+  
+  /* Days row takes full width */
+  .countdown-segment:nth-child(1) {
+    flex-basis: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  /* Hours, minutes, seconds row */
+  .countdown-segment:nth-child(2),
+  .countdown-segment:nth-child(3),
+  .countdown-segment:nth-child(4) {
+    flex: 1;
+    min-width: 0;
   }
   
   .countdown-value {
@@ -122,5 +152,18 @@ body {
   
   .countdown-label {
     font-size: 1rem;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 400px) {
+  .countdown-segment:nth-child(2),
+  .countdown-segment:nth-child(3),
+  .countdown-segment:nth-child(4) {
+    padding: 0 5px;
+  }
+  
+  .countdown-value {
+    font-size: 2rem;
   }
 }
