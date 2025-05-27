@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  width: 90%;
+  overflow: hidden;
+}
+
+.countdown-container h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.countdown-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #bbbbbb;
+}
+
+.date-picker-container {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.date-picker-container label {
+  font-size: 1.2rem;
+  color: #bbbbbb;
+}
+
+.date-picker-container input {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.date-picker-container input:focus {
+  outline: none;
+  border-color: #00aeff;
+  box-shadow: 0 0 10px rgba(0, 174, 255, 0.3);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.countdown-segment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+
+.countdown-value {
+  font-size: 4rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #00aeff, #a200ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(162, 0, 255, 0.3);
+}
+
+.countdown-label {
+  font-size: 1.2rem;
+  color: #bbbbbb;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .countdown-container h1 {
+    font-size: 2rem;
+  }
+  
+  .countdown-container h2 {
+    font-size: 1.2rem;
+  }
+  
+  .countdown-segment {
+    min-width: 80px;
+  }
+  
+  .countdown-value {
+    font-size: 2.5rem;
+  }
+  
+  .countdown-label {
+    font-size: 1rem;
+  }
+}
