@@ -1,23 +1,26 @@
-import { useEffect, useState } from 'react';
-import '../styles/HourglassAnimation.css';
+import { useEffect, useState } from "react";
+import "../styles/HourglassAnimation.css";
 
 const HourglassAnimation = ({ timeRemaining, totalDays }) => {
   // Calculate progress percentage (how much sand has fallen)
-  const [sandProgress, setSandProgress] = useState(0);
-  
+  const [topSand, setTopSand] = useState(100);
+  const [bottomSand, bottomTopSand] = useState(0);
+
   useEffect(() => {
-    // Calculate what percentage of time has passed
-    const daysLeft = timeRemaining.days;
-    const hoursLeft = timeRemaining.hours;
-    const minutesLeft = timeRemaining.minutes;
-    
-    // Convert all to minutes for more precise calculation
-    const totalMinutesLeft = daysLeft * 24 * 60 + hoursLeft * 60 + minutesLeft;
-    const totalMinutes = totalDays * 24 * 60;
-    
-    // Calculate progress (100% means all sand has fallen)
-    const percentComplete = Math.min(100, Math.max(0, 100 - (totalMinutesLeft / totalMinutes * 100)));
-    setSandProgress(percentComplete);
+    // Calculate the percentage of sand in the top chamber
+    const totalSeconds = totalDays * 24 * 60 * 60; // Total seconds in the countdown
+    const elapsedSeconds =
+      (totalDays - timeRemaining.days) * 24 * 60 * 60 +
+      timeRemaining.hours * 3600 +
+      timeRemaining.minutes * 60 +
+      timeRemaining.seconds;
+
+    const topSandPercentage = Math.max(
+      0,
+      Math.min(100, (elapsedSeconds / totalSeconds) * 100),
+    );
+    setTopSand(100 - topSandPercentage);
+    bottomTopSand(topSandPercentage);
   }, [timeRemaining, totalDays]);
 
   return (
@@ -25,12 +28,15 @@ const HourglassAnimation = ({ timeRemaining, totalDays }) => {
       <div className="hourglass">
         {/* Top chamber - sand decreases */}
         <div className="hourglass-top">
-          <div 
-            className="sand-top" 
-            style={{ height: `${100 - sandProgress}%` }}
+          {/* Sand in top chamber - explicitly set to 95% of available space */}
+          <div
+            className="sand-top"
+            style={{
+              height: `${topSand}%`,
+            }}
           ></div>
         </div>
-        
+
         {/* Middle connector */}
         <div className="hourglass-middle">
           {/* Falling sand particles */}
@@ -40,22 +46,20 @@ const HourglassAnimation = ({ timeRemaining, totalDays }) => {
             <div className="sand-particle particle-3"></div>
           </div>
         </div>
-        
-        {/* Bottom chamber - sand increases */}
+
+        {/* Bottom chamber - sand increases from bottom up */}
         <div className="hourglass-bottom">
-          <div 
-            className="sand-bottom" 
-            style={{ height: `${sandProgress}%` }}
+          <div
+            className="sand-bottom"
+            style={{
+              height: `${bottomSand}%`,
+            }}
           ></div>
         </div>
-        
-        {/* Hourglass frame */}
+
+        {/* Hourglass frame - rendered after sand to ensure it's visible */}
         <div className="hourglass-frame"></div>
       </div>
-      
-      {sandProgress >= 100 && (
-        <div className="time-up-message">Час вийшов!</div>
-      )}
     </div>
   );
 };
